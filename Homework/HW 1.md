@@ -36,72 +36,89 @@
 | 3          | 0x0A    | 0x89 |
 | 4          | 0x0B    | 0xAB |
 
----
-13. Answer the following questions about this MIPS instruction: `add $t3, $t4, $t5`
-	- which register is the `rd` destination register?
-	- What is the decimal number address of the `rs` first source register (example - $t0 address is 8)? 
-	- Assume the following values are in register memory. What would the new value in the `rd` destination register be after executing this add instruction?
+3. Match the following terms and definitions
 
-| Register | Value (decimal) |
-| -------- | --------------- |
-| $zero    | 0               |
-| $t0      | 12              |
-| $t1      | 4               |
-| $t2      | -31             |
-| $t3      | 64              |
-| $t4      | -5              |
-| $t5      | 100             |
+| Term                   | Definition                                                        |
+| ---------------------- | ----------------------------------------------------------------- |
+| While loop             | Repeatedly executes a code block as long as condition is TRUE     |
+| * dereference operator | Used to access value stored in the memory location pointed at     |
+| Pointer                | A derived variable type that is used for storing a memory address |
+| if statement           | Allows you to conditionally execute code when statement is TRUE   |
+| Array                  | Used for storing a collection of elements of the same type        |
+| \#include              | A preprocessor directive for inserting .h header files            |
+| & reference operator   | Used to get the memory location of a variable                     |
+| do while loop          | Correct match:<br>Guaranteed to execute the loop at least once    |
+4. The following program has some unit tests designed to check the correct operation of the arithmetic functions. Review the program and identify on what lines there are errors in the unit test
+	- Line 48
+	- Line 56
+5. Which step of the compiler toolchain translates C code into assembly instructions?
+	- Assembler
+	- ==Compiler==
+	- Linker
+	- Preprocessor
+6. What are the results of the following operations? Fill in your answers with only digits, without spaces, underscores, or prefixes like 0b or 0x.
+	- A: 0xF4
+	- B: 0b0010_0010
+	- C: 0b0101_1000
+	- D: 0b0000_0010
+7. Assume you have a pointer variable that is declared and initialized to the address of a register that controls 32 LEDs (each bit in memory represents an LED, this is known as a register bank). Assume integers are 4 byte values (32 bits). Finish the code that would turn on every other LED (example: on, off, on, off, …, on, off, on, off). Assume writing a 0 will turn the LED off, and writing a 1 will turn it on. For your final answer, be sure that the first LED represented by BIT0 is set to off.
+```C
+#define LED_REGISTER_ADDER (0x40002000) //LED reg address
+int main(void) {
+	int * led_register_ptr = (int *)LED_REGISTER_ADDR;
+	*led_register_ptr = ???; //Replace ??? with correct hex val
+	return 0;
+}
+```
+Complete the code for the `led_register_ptr` to set every other LED on.
+- ==*led_register_ptr = 0xAAAAAAAA;==
+- *led_register_ptr = 0x10101010;
+- *led_register_ptr = *0x10101010;
+- *led_register_ptr = *0xAAAAAAAA;
 
-13. Update the register memory and main memory tables after the following MIPS load word and store word instructions execute. Assume the following initial values are in register and main memory.
+8. What is the total memory capacity of a system with 16-bit addresses, and an addressability of 4 bytes per address?
+	- ==2,097,152 bits or 262,144 bytes==
+	- 262,144 bits or 32,768 bytes
+	- 524,288 bits or 65,536 bytes
+	- 1,048,576 bits or 131,072 bytes
+9. Answer the following questions about the GPIO diagram. Assume that when written with a logical ‘1’ the GPIO output is set to 6V, and when written with a logical ‘0’ the GPIO is set to 0V (ground).
+	1. What value would you need to set to turn the LED on? 1 or 0?
+		- ==0==
+	2. Given the following active-low GPIO output, what resistance (in ohms) would you need to use to ensure that 25 milliamps goes through the LED? Assume there is no forward voltage drop across the LED. Write your answer as a whole number without units
+		- ==240 ohms==
+10. Consider the following 32-bit 2’s complement number: 0xF123AC40. Select the correct statements.
+	1. ==It represents a negative number==
+	2. It’s an odd number
+	3. ==It’s an even number==
+	4. The most significant bit is zero
+	5. ==The least significant bit is zero==
+11. Assume for all binary representations that you have 4-bits of storage available
 
-| Register Address | Register Date Value (in decimal) |
-| ---------------- | -------------------------------- |
-| $zero            | 0                                |
-| $v0              | 16                               |
-| $v1              | 16                               |
-| $a0              | 24                               |
-| $a1              | 6                                |
-| $a2              | 8                                |
-| $a3              | 42                               |
-| $t0              | 401                              |
-| $t1              | 1500                             |
-| $t2              | -134                             |
-| $t3              | 654                              |
-| $t4              | -96                              |
-| $t5              | 58                               |
-| $t6              | 96                               |
-| $t7              | 1024                             |
-| $s0              | 2048                             |
-| $s1              | 40                               |
-| $s2              | 412                              |
-| $s3              | 9765                             |
-| $s4              | 4321                             |
-| $s5              | 2222                             |
-| $s6              | -2579                            |
-| $s7              | 2727                             |
-| $t8              | 721                              |
-| $t9              | 9635                             |
-| $ra              | 0xFD465789                       |
-Assume the instructions execute sequentially.
-1. `lw $t0, 12($s1)`
-2. `sw t3, 4($s1)`
-3. `lw $t8, -16($s1)`
-4. `sw $a0, -8($v0)`
-
-| Main Memory Addres | Main Memory Data Value |
-| ------------------ | ---------------------- |
-| 0x0                | 32                     |
-| 0x4                | 511                    |
-| 0x8                | 47                     |
-| 0xC                | -96                    |
-| 0x10               | 105                    |
-| 0x14               | 49                     |
-| 0x18               | 127                    |
-| 0x1C               | 1111                   |
-| 0x20               | 2222                   |
-| 0x24               | 3333                   |
-| 0x28               | 4569                   |
-| 0x2C               | 456                    |
-| 0x30               | 789                    |
-| 0x34               | 104                    |
-| ...                |                        |
+| Signed Decimal | Signed Magnitude Binary Representation | Signed 2's complement binary representation | Unsigned binary representation | Unsigned Hexidecimal |
+| -------------- | -------------------------------------- | ------------------------------------------- | ------------------------------ | -------------------- |
+| 15             | N/A                                    | N/A                                         | ==0b1111==                     | ==0xF==              |
+| -1             | ==0b1001==                             | ==0b1111==                                  | N/A                            | N/A                  |
+| -8             | N/A                                    | ==0b1000==                                  | N/A                            | N/A                  |
+| 7              | ==0b0111==                             | ==0b0111==                                  | ==0b0111==                     | ==0x7==              |
+| 10             | N/A                                    | N/A                                         | ==0b1010==                     | ==0xA==              |
+12. Why are the boxes blacked out in the previous problem?
+	- The numbers can be represented with 4 bits, but not with hex
+	- The numbers can be represented with 4 bits with ascii
+	- ==Some of the numbers can't be represented with signed magnitude in 4 bits==
+	- ==Some negative numbers can't be represented with unsigned binary/hex==
+13. Answer the following questions about this MIPS instruction: add $t3, $t4, $t5
+	1. Which register is the ‘rd’ destination register?
+		- ==$t3==
+	2. What is the decimal number address of the ‘rs’ first source register (example - $t0 address is 8)?
+		- ==12==
+	3. Assume the following values are in register memory. What would the new value in the ‘rd’ destination register be after executing this add instruction?
+		- ==95==
+14. Update the register memory and main memory tables after the following MIPS load word and store word instructions execute. Assume the following initial values are in register and main memory. Assume the instructions execute sequentially.
+	1. lw \$t0, 12(\$s1)
+		- ==$t0=104==
+	2. sw \$t3, 4(\$s1)
+		- ==0x2C=654==
+	3. lw \$t8, -16(\$s1)
+		- ==$t8=127==
+	4. sw \$a0, -8(\$v0)
+		- ==0x8=24==
